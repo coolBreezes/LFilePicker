@@ -352,12 +352,13 @@ public class LFilePickerActivity extends AppCompatActivity {
      * 更新选项菜单文字
      */
     public void updateMenuTitle() {
-
+        /*
         if (mIsAllSelected) {
             mMenu.getItem(0).setTitle(getString(R.string.lfile_Cancel));
         } else {
             mMenu.getItem(0).setTitle(getString(R.string.lfile_SelectAll));
         }
+         */
     }
 
 }
