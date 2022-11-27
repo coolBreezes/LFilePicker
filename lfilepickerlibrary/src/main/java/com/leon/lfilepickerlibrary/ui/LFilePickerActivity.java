@@ -171,8 +171,18 @@ public class LFilePickerActivity extends AppCompatActivity {
                         updateMenuTitle();
                         //mBtnAddBook.setText(getString(R.string.lfile_Selected));
                     } else {
+                        boolean isSelected = mListNumbers.contains(mListFiles.get(position)
+                                .getAbsolutePath());
+                        //先判断是否已达到上限
+                        if (!isSelected && (mParamEntity.getMaxNum() > 0 &&
+                                mListNumbers.size() == mParamEntity.getMaxNum())) {
+                            //取消状态栏勾选
+                            mPathAdapter.updateSelected(position,false);
+                            Toast.makeText(LFilePickerActivity.this, R.string.lfile_OutSize, Toast.LENGTH_SHORT).show();
+                            return;
+                        }
                         //如果已经选择则取消，否则添加进来
-                        if (mListNumbers.contains(mListFiles.get(position).getAbsolutePath())) {
+                        if (isSelected) {
                             mListNumbers.remove(mListFiles.get(position).getAbsolutePath());
                         } else {
                             mListNumbers.add(mListFiles.get(position).getAbsolutePath());
@@ -182,11 +192,13 @@ public class LFilePickerActivity extends AppCompatActivity {
                         } else {
                             mBtnAddBook.setText(getString(R.string.lfile_Selected) + "( " + mListNumbers.size() + " )");
                         }
+                        /*
                         //先判断是否达到最大数量，如果数量达到上限提示，否则继续添加
                         if (mParamEntity.getMaxNum() > 0 && mListNumbers.size() > mParamEntity.getMaxNum()) {
                             Toast.makeText(LFilePickerActivity.this, R.string.lfile_OutSize, Toast.LENGTH_SHORT).show();
                             return;
                         }
+                         */
                     }
                 } else {
                     //单选模式直接返回

@@ -195,6 +195,13 @@ public class PathAdapter extends RecyclerView.Adapter<PathAdapter.PathViewHolder
         notifyDataSetChanged();
     }
 
+    public void updateSelected(int position, boolean isSelected) {
+        if (position > 0 && mCheckedFlags.length > position) {
+            mCheckedFlags[position] = isSelected;
+            notifyDataSetChanged();
+        }
+    }
+
 
     class PathViewHolder extends RecyclerView.ViewHolder {
         private RelativeLayout layoutRoot;
