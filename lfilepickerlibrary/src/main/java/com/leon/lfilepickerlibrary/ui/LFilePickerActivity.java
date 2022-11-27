@@ -140,12 +140,14 @@ public class LFilePickerActivity extends AppCompatActivity {
                 mPath = tempPath;
                 mListFiles = FileUtils.getFileList(mPath, mFilter, mParamEntity.isGreater(), mParamEntity.getFileSize());
                 mPathAdapter.setmListData(mListFiles);
-                mPathAdapter.updateAllSelelcted(false);
+                //mPathAdapter.updateAllSelelcted(false);
+                mPathAdapter.updateAllSelected(mListNumbers);
                 mIsAllSelected = false;
                 updateMenuTitle();
-                mBtnAddBook.setText(getString(R.string.lfile_Selected));
+                //mBtnAddBook.setText(getString(R.string.lfile_Selected));
                 mRecylerView.scrollToPosition(0);
                 setShowPath(mPath);
+                /*
                 //清除添加集合中数据
                 mListNumbers.clear();
                 if (mParamEntity.getAddText() != null) {
@@ -153,6 +155,7 @@ public class LFilePickerActivity extends AppCompatActivity {
                 } else {
                     mBtnAddBook.setText(R.string.lfile_Selected);
                 }
+                 */
             }
         });
         mPathAdapter.setOnItemClickListener(new PathAdapter.OnItemClickListener() {
@@ -162,10 +165,11 @@ public class LFilePickerActivity extends AppCompatActivity {
                     if (mListFiles.get(position).isDirectory()) {
                         //如果当前是目录，则进入继续查看目录
                         chekInDirectory(position);
-                        mPathAdapter.updateAllSelelcted(false);
+                        //mPathAdapter.updateAllSelelcted(false);
+                        mPathAdapter.updateAllSelected(mListNumbers);
                         mIsAllSelected = false;
                         updateMenuTitle();
-                        mBtnAddBook.setText(getString(R.string.lfile_Selected));
+                        //mBtnAddBook.setText(getString(R.string.lfile_Selected));
                     } else {
                         //如果已经选择则取消，否则添加进来
                         if (mListNumbers.contains(mListFiles.get(position).getAbsolutePath())) {

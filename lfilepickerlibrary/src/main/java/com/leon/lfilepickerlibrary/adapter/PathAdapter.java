@@ -2,6 +2,7 @@ package com.leon.lfilepickerlibrary.adapter;
 
 import android.content.Context;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.CheckBox;
@@ -36,7 +37,7 @@ public class PathAdapter extends RecyclerView.Adapter<PathAdapter.PathViewHolder
     private Context mContext;
     public OnItemClickListener onItemClickListener;
     private FileFilter mFileFilter;
-    private boolean[] mCheckedFlags;
+    private volatile boolean[] mCheckedFlags;
     private boolean mMutilyMode;
     private int mIconStyle;
     private boolean mIsGreater;
@@ -177,6 +178,23 @@ public class PathAdapter extends RecyclerView.Adapter<PathAdapter.PathViewHolder
         }
         notifyDataSetChanged();
     }
+
+    public void updateAllSelected(List<String> allSelectedList) {
+        if (mListData.size() != mCheckedFlags.length) {
+            Log.e("TAG51", "updateAllSelected listData and checkData size not equal");
+            return;
+        }
+        for (int i = 0; i < mCheckedFlags.length; i++) {
+            File file = mListData.get(i);
+            if (file == null || file.isDirectory()) {
+                continue;
+            }
+            boolean isChecked = allSelectedList.contains(file.getAbsolutePath());
+            mCheckedFlags[i] = isChecked;
+        }
+        notifyDataSetChanged();
+    }
+
 
     class PathViewHolder extends RecyclerView.ViewHolder {
         private RelativeLayout layoutRoot;

@@ -89,14 +89,16 @@ public class MainActivity extends AppCompatActivity {
                 .withTitle("文件选择")
                 .withIconStyle(mIconType)
                 .withBackIcon(mBackArrawType)
-                .withMutilyMode(false)
+                .withMutilyMode(true)
                 .withMaxNum(2)
-                .withStartPath("/storage/emulated/0/Download")//指定初始显示路径
+                .withStartPath("/storage/emulated/0")//指定初始显示路径
                 .withNotFoundBooks("至少选择一个文件")
-                .withIsGreater(false)//过滤文件大小 小于指定大小的文件
-                .withFileSize(500 * 1024)//指定文件大小为500K
-                .withChooseMode(false)//文件夹选择模式
+//                .withIsGreater(false)//过滤文件大小 小于指定大小的文件
+//                .withFileSize(500 * 1024)//指定文件大小为500K
+                .withChooseMode(true)//文件选择模式
                 //.withFileFilter(new String[]{"txt", "png", "docx"})
+                .withFileFilter(new String[]{".zip", ".bin2", ".fota",
+                        ".nfp", ".efp"})
                 .start();
     }
 
@@ -113,10 +115,10 @@ public class MainActivity extends AppCompatActivity {
                 //for (String s : list) {
                 //    Toast.makeText(getApplicationContext(), s, Toast.LENGTH_SHORT).show();
                 //}
-//                Toast.makeText(getApplicationContext(), "选中了" + list.size() + "个文件", Toast.LENGTH_SHORT).show();
-                String path = data.getStringExtra("path");
-                Toast.makeText(getApplicationContext(), "选中的路径为" + path, Toast.LENGTH_SHORT).show();
-                Log.i("LeonFilePicker", path);
+                Toast.makeText(getApplicationContext(), "选中了" + list.size() + "个文件", Toast.LENGTH_SHORT).show();
+//                String path = data.getStringExtra("path");
+//                Toast.makeText(getApplicationContext(), "选中的路径为" + path, Toast.LENGTH_SHORT).show();
+//                Log.i("LeonFilePicker", path);
             }
         }
     }
