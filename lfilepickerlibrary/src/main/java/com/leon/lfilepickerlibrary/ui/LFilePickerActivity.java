@@ -46,12 +46,17 @@ public class LFilePickerActivity extends AppCompatActivity {
     private boolean mIsAllSelected = false;
     private Menu mMenu;
 
+    private static String SD_ROOT_PATH;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         mParamEntity = (ParamEntity) getIntent().getExtras().getSerializable("param");
         setTheme(mParamEntity.getTheme());
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_lfile_picker);
+
+        SD_ROOT_PATH = FileUtils.getSdRootPath();
+
         initView();
         setSupportActionBar(mToolbar);
         getSupportActionBar().setHomeButtonEnabled(true);
@@ -67,7 +72,7 @@ public class LFilePickerActivity extends AppCompatActivity {
             //如果没有指定路径，则使用默认路径
             mPath = Environment.getExternalStorageDirectory().getAbsolutePath();
         }
-        mTvPath.setText(mPath);
+        setShowPath(mPath);
         mFilter = new LFileFilter(mParamEntity.getFileTypes());
         mListFiles = FileUtils.getFileList(mPath, mFilter, mParamEntity.isGreater(), mParamEntity.getFileSize());
         mPathAdapter = new PathAdapter(mListFiles, this, mFilter, mParamEntity.isMutilyMode(), mParamEntity.isGreater(), mParamEntity.getFileSize());
@@ -294,11 +299,13 @@ public class LFilePickerActivity extends AppCompatActivity {
 
     /**
      * 显示顶部地址
-     *
+     * -- 2022-11-27 更新 "上一级" 按钮显示状态
      * @param path
      */
     private void setShowPath(String path) {
         mTvPath.setText(path);
+        boolean isRootPath = SD_ROOT_PATH.equals(path);
+        mTvBack.setVisibility(isRootPath ? View.GONE : View.VISIBLE);
     }
 
     @Override

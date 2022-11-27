@@ -1,12 +1,11 @@
 package com.leon.lfilepickerlibrary.utils;
 
-import android.util.Log;
+import android.os.Environment;
 
 import java.io.File;
 import java.io.FileFilter;
 import java.text.DecimalFormat;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Collections;
 import java.util.Iterator;
 import java.util.List;
@@ -91,5 +90,9 @@ public class FileUtils {
             }
         }
         return list;
+    }
+
+    public static String getSdRootPath() {
+        return Environment.getExternalStorageDirectory().getAbsolutePath();
     }
 }
