@@ -303,9 +303,12 @@ public class LFilePickerActivity extends AppCompatActivity {
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
+        //由于全选按钮与多选数量限制功能冲突，当前屏蔽全选菜单按钮功能
+        /*
         getMenuInflater().inflate(R.menu.menu_main_toolbar, menu);
         this.mMenu = menu;
         updateOptionsMenu(menu);
+         */
         return true;
     }
 
